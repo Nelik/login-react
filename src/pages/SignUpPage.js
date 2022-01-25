@@ -14,10 +14,14 @@ function SignUpPage() {
     getIsLoggedIn();
   }, []);
 
+  const handleSignUp = () => {
+    setLoggedIn(true);
+  };
+
   if (isLoggedIn) {
-    return <Greeting />;
+    return <Greeting handleLogOutCallback={() => setLoggedIn(false)} />;
   }
-  return <SignUp />;
+  return <SignUp handleSignUpCallback={handleSignUp} />;
 }
 
 export default SignUpPage;

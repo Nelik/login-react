@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Greeting from '../components/Greeting';
 
-function HomePage({ logOutCallback }) {
+function HomePage() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function HomePage({ logOutCallback }) {
   }, []);
 
   if (isLoggedIn) {
-    return <Greeting logOutCallback={logOutCallback} />;
+    return <Greeting handleLogOutCallback={() => setLoggedIn(false)} />;
   }
   return (
     <>

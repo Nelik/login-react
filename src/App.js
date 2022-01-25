@@ -6,6 +6,7 @@ import './App.css';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   useEffect(() => {
@@ -48,6 +49,7 @@ function App() {
               <Route exact path="/" element={<HomePage />} />
               <Route path="/log-in" element={<LoginPage />} />
               <Route path="/sign-up" element={<SignUpPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>
         </div>

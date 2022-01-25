@@ -82,3 +82,7 @@ html,
 .forgot-password a {
   color: #167bff;
 }
+
+.error {
+  color: #ff0000;
+}

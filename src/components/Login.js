@@ -1,19 +1,44 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Login() {
+function Login({ handleLogInCallback }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (e) => {
+  const unexpectedError = 'An unexpected error happened. Please, try to log in again.';
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { status, data } = await axios.post('/log-in', { username, password });
-    if (status === 200) {
-      console.info(`User ${username} is logged in.`);
-    } else {
-      console.error(data.error);
+    if (!username || !password) {
+      setErrorMessage('Username and password are required!');
     }
+    axios
+      .post('/log-in', { username, password })
+      .then((result) => {
+        handleLogInCallback(result.data.username);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // The request was made and the server responded with a status code that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setErrorMessage(error.response.data.error);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log(error.request);
+          setErrorMessage(unexpectedError);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+          setErrorMessage(unexpectedError);
+        }
+      });
   };
+
+  // Generate JSX code for error message
+  const renderErrorMessage = (errorMessage) => errorMessage && <div className="error">{errorMessage}</div>;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -40,8 +65,7 @@ function Login() {
           onChange={(event) => setPassword(event.target.value)}
         />
       </div>
-
-      {/* {isWrongPswd && <div className="invalid-feedback">Wrong username or password!</div>} */}
+      {renderErrorMessage(errorMessage)}
       <button type="submit" className="btn btn-primary btn-block">
         Submit
       </button>

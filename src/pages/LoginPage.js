@@ -14,10 +14,14 @@ function LoginPage() {
     getIsLoggedIn();
   }, []);
 
+  const handleLogIn = () => {
+    setLoggedIn(true);
+  };
+
   if (isLoggedIn) {
-    return <Greeting />;
+    return <Greeting handleLogOutCallback={() => setLoggedIn(false)} />;
   }
-  return <Login />;
+  return <Login handleLogInCallback={handleLogIn} />;
 }
 
 export default LoginPage;
