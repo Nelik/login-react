@@ -15,7 +15,7 @@ This project was set up with NodeJS 16.X. Recommended version is 16.X or higher.
   - Install NodeJS using NVM: $ nvm install 12.22.0 $ nvm use 12.22.0
   - Install dependecies with `npm install` in the root project directory.
   
-  ### Run
+### Run
 To start the application run `npm start` in the root project directory.
 
 ### Deployment
